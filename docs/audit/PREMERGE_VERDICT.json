@@ -1,0 +1,14 @@
+{
+  "scope": "Maintainer-approved Plan B product-grade OSS cleanup",
+  "application_baseline": "a7a1ee4938460b2183ba181a44b403cbb1205f94",
+  "dependency_closed_source": "d2d8c6707fe101e257038e330da97ab20cc3cce1",
+  "implementation_type": "self-reviewed implementation with executable contracts and browser checks, not independent third-party audit",
+  "historical_baseline": {"clean_install": "FAIL", "diagnostic_contracts": {"passed": 2, "failed": 13, "total": 15}},
+  "updated_working_tree_evidence": {"clean_install": "PASS", "typecheck": "PASS", "lint": "PASS", "contracts": "15/15", "browser_checks": "15/15", "npm_audit_all": 0, "npm_audit_runtime": 0},
+  "final_commit_gate": "REQUIRED_BEFORE_MERGE",
+  "public_pages": "NOT_VERIFIED; Settings source configuration blocked by missing authenticated browser session",
+  "npm_publish": "NOT_REQUESTED_NOT_DONE",
+  "social_post": "NOT_DONE",
+  "codex_oss_application": "PAUSED_NOT_SUBMITTED",
+  "remaining_limits": ["Chromium exercised; Safari/iOS not certified", "Generated HTML is a full-document example, dynamic removal cleanup belongs to host", "Extreme narrow 6-card layouts can make text small", "No independent original-art licensing audit or external-adoption claim"]
+}
