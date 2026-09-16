@@ -1,0 +1,78 @@
+name: Patched browser tooling and dependency audit
+on:
+  push:
+    branches: [feat/oss-productization-b-20260916]
+    paths: ['.github/workflows/dependency-maintenance.yml']
+permissions:
+  contents: write
+defaults:
+  run:
+    shell: bash
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: mkdir -p evidence
+      - name: Record audit before update
+        run: |
+          npm audit --json > evidence/audit-before.json || true
+          npm audit --omit=dev --json > evidence/audit-production-before.json || true
+      - name: Update browser testing dependency and compatible transitive fixes
+        run: |
+          npm install --save-dev --save-exact playwright@1.62.0 --ignore-scripts --no-fund 2>&1 | tee evidence/update.log
+          npm audit fix --ignore-scripts --no-fund 2>&1 | tee evidence/audit-fix.log || true
+          npm ci 2>&1 | tee evidence/install.log
+          npm audit --json > evidence/audit-after.json || true
+          npm audit --omit=dev --json > evidence/audit-production-after.json || true
+          node --input-type=module <<'JS'
+          import {readFileSync} from 'node:fs';
+          for(const file of ['audit-after.json','audit-production-after.json']) {
+            const report=JSON.parse(readFileSync('evidence/'+file,'utf8'));
+            if(report.error || !report.metadata?.vulnerabilities) throw new Error('Audit unavailable: '+file);
+            console.log(file, JSON.stringify(report.metadata.vulnerabilities));
+            const counts=report.metadata.vulnerabilities;
+            if(counts.high || counts.critical) throw new Error('High/critical audit issue remains: '+file);
+          }
+          JS
+      - name: Test updated dependency set
+        env:
+          GITHUB_PAGES: '1'
+        run: |
+          npm run typecheck 2>&1 | tee evidence/typecheck.log
+          npm run lint 2>&1 | tee evidence/lint.log
+          npm test 2>&1 | tee evidence/contracts.log
+          npm run build 2>&1 | tee evidence/build.log
+          npx playwright install --with-deps chromium
+          npm run test:browser 2>&1 | tee evidence/browser.log
+      - name: Commit dependency files only, no workflow changes
+        env:
+          EXPECTED_HEAD: ${{ github.sha }}
+        run: |
+          git fetch origin feat/oss-productization-b-20260916
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add package.json package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'build: update Playwright and compatible vulnerable transitive dependencies'
+            git push origin HEAD:refs/heads/feat/oss-productization-b-20260916
+          fi
+          git rev-parse HEAD > evidence/HEAD.txt
+      - name: Preserve results and source
+        if: always()
+        run: |
+          git rev-parse HEAD > evidence/runner-head.txt
+          cp package.json package-lock.json evidence/
+          git archive HEAD -o evidence/source.tar.gz
+          if [ -d dist ]; then tar -czf evidence/dist.tar.gz dist; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mosha-dependency-audit-${{ github.sha }}
+          path: evidence/
+          retention-days: 30
