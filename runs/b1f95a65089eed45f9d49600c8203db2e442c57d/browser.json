@@ -1,0 +1,138 @@
+{
+  "status": "PASS",
+  "source": "b1f95a65089eed45f9d49600c8203db2e442c57d",
+  "browser": "151.0.7922.34",
+  "tests": 16,
+  "passed": 16,
+  "failed": 0,
+  "results": [
+    {
+      "name": "studio loads with seven presets and no login",
+      "pass": true
+    },
+    {
+      "name": "fan stack pin and Escape work",
+      "pass": true
+    },
+    {
+      "name": "keyboard edits persist across reload",
+      "pass": true
+    },
+    {
+      "name": "bad color drafts do not become CSS",
+      "pass": true
+    },
+    {
+      "name": "card count and preserved selection boundaries",
+      "pass": true
+    },
+    {
+      "name": "literal text remains literal and HTML download runs",
+      "pass": true
+    },
+    {
+      "name": "liquid preset renders and can be pinned",
+      "pass": true
+    },
+    {
+      "name": "React export is copyable",
+      "pass": true
+    },
+    {
+      "name": "exported HTML renders escaped text and keyboard interaction",
+      "pass": true
+    },
+    {
+      "name": "two compiled React exports render without style or filter collision",
+      "pass": true
+    },
+    {
+      "name": "all mobile toolbar controls keep accessible names",
+      "pass": true
+    },
+    {
+      "name": "mobile studio and exports have no horizontal document overflow",
+      "pass": true
+    },
+    {
+      "name": "reduced motion disables automatic demo and spin",
+      "pass": true
+    },
+    {
+      "name": "corrupt storage recovery does not crash the studio",
+      "pass": true
+    },
+    {
+      "name": "release dist stays byte-identical during browser checks",
+      "pass": true
+    },
+    {
+      "name": "no application exceptions or failed local resources",
+      "pass": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "01-studio.png",
+      "sha256": "0490dfc2c7d23ef773b5320c3ec6f6d7b78d1d8a106a9e56576f9f1b05e7bc35",
+      "url": "http://127.0.0.1:4173/mosha-card-ui/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelSize": [
+        2160,
+        1500
+      ]
+    },
+    {
+      "file": "02-liquid.png",
+      "sha256": "1a566d65fd3f9beb69eed193fd68864520c94150f6cf0decd008a6914fca3bc4",
+      "url": "http://127.0.0.1:4173/mosha-card-ui/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelSize": [
+        2160,
+        1500
+      ]
+    },
+    {
+      "file": "03-export.png",
+      "sha256": "d6a4b4d3c009649b1642e3e7331586dd7a43d6e7a85223c0cdc1cb18b19b972b",
+      "url": "http://127.0.0.1:4173/mosha-card-ui/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelSize": [
+        2160,
+        1500
+      ]
+    },
+    {
+      "file": "04-react-integration.png",
+      "sha256": "2c1c067e3304430e5692214713c8359899bc7cf8aa9a3d555d9f2560f4f15efd",
+      "url": "http://127.0.0.1:4173/mosha-card-ui/react/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "pixelSize": [
+        2160,
+        1500
+      ]
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "assetFailures": [],
+  "externalFailures": [],
+  "method": "Actual Chromium screenshots and interaction tests of production studio plus generated HTML and separately compiled two-instance TSX. Fixtures are isolated from release dist. No AI image generation.",
+  "limits": [
+    "Chromium only; not a Safari/iOS certification",
+    "External studio fonts are optional; local offline verification may use system fallback",
+    "No backend, authentication or model API integration"
+  ]
+}

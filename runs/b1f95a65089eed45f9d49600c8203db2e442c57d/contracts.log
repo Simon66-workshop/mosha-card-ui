@@ -1,0 +1,43 @@
+
+> mosha-card-ui@0.2.0 test
+> node tests/contracts.mjs && node tests/edge-cases.mjs && node tests/release-integrity.mjs
+
+PASS default exports contain four cards
+PASS HTML text is escaped
+PASS HTML background cannot terminate a style element
+PASS HTML tint cannot create an event attribute
+PASS CSS color rejects declaration injection
+PASS nonfinite numeric values never reach exported CSS
+PASS generated React accepts JSX-significant literal text
+PASS React export supports keyboard focus
+PASS HTML export supports keyboard focus
+PASS malformed restored cards cannot omit required text
+PASS restored card count is capped at six
+PASS invalid restored symbols are normalized
+PASS invalid restored numeric strings are normalized
+PASS restored background is a bounded hex color
+PASS deleting an earlier card preserves selected identity
+PASS sparse arrays become complete cards
+PASS truncating a title preserves Unicode pairs
+PASS mixed malformed card values recover
+PASS all invalid color syntax is rejected
+PASS primitive parameter input recovers
+PASS normalizing settings does not mutate caller data
+PASS complete synthetic receipt accepted
+PASS stale source rejected
+PASS missing case rejected
+PASS duplicate case rejected
+PASS false case rejected
+PASS forged aggregate rejected
+PASS missing isolation check rejected
+PASS console error rejected
+PASS missing audit rejected
+PASS unavailable audit rejected
+PASS nonzero advisory rejected
+PASS changed release rejected
+PASS test fixture in release rejected
+PASS duplicate artifact rejected
+PASS tampered screenshot rejected
+PASS duplicate screenshot rejected
+PASS invalid source rejected
+PASS manifest detects bytes and rejects symlinks

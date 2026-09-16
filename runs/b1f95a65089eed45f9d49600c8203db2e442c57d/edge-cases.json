@@ -1,0 +1,32 @@
+{
+  "source": "b1f95a65089eed45f9d49600c8203db2e442c57d",
+  "checked": 6,
+  "passed": 6,
+  "failed": 0,
+  "results": [
+    {
+      "name": "sparse arrays become complete cards",
+      "pass": true
+    },
+    {
+      "name": "truncating a title preserves Unicode pairs",
+      "pass": true
+    },
+    {
+      "name": "mixed malformed card values recover",
+      "pass": true
+    },
+    {
+      "name": "all invalid color syntax is rejected",
+      "pass": true
+    },
+    {
+      "name": "primitive parameter input recovers",
+      "pass": true
+    },
+    {
+      "name": "normalizing settings does not mutate caller data",
+      "pass": true
+    }
+  ]
+}

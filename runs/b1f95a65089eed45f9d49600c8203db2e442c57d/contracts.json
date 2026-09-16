@@ -1,0 +1,68 @@
+{
+  "source": "b1f95a65089eed45f9d49600c8203db2e442c57d",
+  "checked": 15,
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "name": "default exports contain four cards",
+      "pass": true
+    },
+    {
+      "name": "HTML text is escaped",
+      "pass": true
+    },
+    {
+      "name": "HTML background cannot terminate a style element",
+      "pass": true
+    },
+    {
+      "name": "HTML tint cannot create an event attribute",
+      "pass": true
+    },
+    {
+      "name": "CSS color rejects declaration injection",
+      "pass": true
+    },
+    {
+      "name": "nonfinite numeric values never reach exported CSS",
+      "pass": true
+    },
+    {
+      "name": "generated React accepts JSX-significant literal text",
+      "pass": true
+    },
+    {
+      "name": "React export supports keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "HTML export supports keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "malformed restored cards cannot omit required text",
+      "pass": true
+    },
+    {
+      "name": "restored card count is capped at six",
+      "pass": true
+    },
+    {
+      "name": "invalid restored symbols are normalized",
+      "pass": true
+    },
+    {
+      "name": "invalid restored numeric strings are normalized",
+      "pass": true
+    },
+    {
+      "name": "restored background is a bounded hex color",
+      "pass": true
+    },
+    {
+      "name": "deleting an earlier card preserves selected identity",
+      "pass": true
+    }
+  ]
+}
