@@ -1,0 +1,19 @@
+
+> mosha-card-ui@0.2.0 test
+> node tests/contracts.mjs
+
+PASS default exports contain four cards
+PASS HTML text is escaped
+PASS HTML background cannot terminate a style element
+PASS HTML tint cannot create an event attribute
+PASS CSS color rejects declaration injection
+PASS nonfinite numeric values never reach exported CSS
+PASS generated React accepts JSX-significant literal text
+PASS React export supports keyboard focus
+PASS HTML export supports keyboard focus
+PASS malformed restored cards cannot omit required text
+PASS restored card count is capped at six
+PASS invalid restored symbols are normalized
+PASS invalid restored numeric strings are normalized
+PASS restored background is a bounded hex color
+PASS deleting an earlier card preserves selected identity

@@ -1,0 +1,19 @@
+
+> mosha-card-ui@0.2.0 test:browser
+> node tests/browser.mjs
+
+PASS studio loads with seven presets and no login
+PASS fan stack pin and Escape work
+PASS keyboard edits persist across reload
+PASS bad color drafts do not become CSS
+PASS card count and preserved selection boundaries
+PASS literal text remains literal and HTML download runs
+PASS liquid preset renders and can be pinned
+PASS React export is copyable
+PASS exported HTML renders escaped text and keyboard interaction
+PASS two compiled React exports render without style or filter collision
+PASS all mobile toolbar controls keep accessible names
+PASS mobile studio and exports have no horizontal document overflow
+PASS reduced motion disables automatic demo and spin
+PASS corrupt storage recovery does not crash the studio
+PASS no application exceptions or failed local resources
