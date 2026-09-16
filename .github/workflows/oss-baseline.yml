@@ -22,14 +22,16 @@ jobs:
           git archive HEAD -o evidence/source.tar.gz
           git rev-parse HEAD > evidence/HEAD.txt
           git ls-tree -r HEAD > evidence/git-tree.txt
-      - run: npm ci --ignore-scripts
-      - name: Baseline typecheck
+      - name: Reproduce original install contract
         continue-on-error: true
-        run: npm run typecheck 2>&1 | tee evidence/baseline-typecheck.log
-      - name: Run original tests
-        continue-on-error: true
-        run: npm test 2>&1 | tee evidence/baseline-tests.log
-      - name: Regression contracts (expected RED before implementation)
+        run: npm ci --ignore-scripts 2>&1 | tee evidence/baseline-install.log
+      - name: Isolated diagnostic dependencies (does not repair original lockfile)
+        run: |
+          npm install --prefix "$RUNNER_TEMP/mosha-tools" --ignore-scripts --no-audit --no-fund vite@8.2.2 typescript@5.9.3 react@19.2.0 react-dom@19.2.0 @types/react@19.2.0 @types/react-dom@19.2.0 @types/node@22.16.5 zustand@5.0.8 lucide-react@0.510.0 clsx@2.1.1 tailwind-merge@3.5.0 sonner@2.0.7 tailwindcss@4.3.0 @tailwindcss/vite@4.3.0 @vitejs/plugin-react@5.2.0 eslint@9.20.0 @eslint/js@9.20.0 typescript-eslint@8.56.1 globals@15.15.0 eslint-plugin-react-hooks@5.2.0 playwright@1.55.0
+          rm -rf node_modules
+          ln -s "$RUNNER_TEMP/mosha-tools/node_modules" node_modules
+          tar -czf evidence/diagnostic-tools.tar.gz -C "$RUNNER_TEMP/mosha-tools" node_modules package.json package-lock.json
+      - name: Regression contracts against unchanged application (expected RED)
         run: node tests/contracts.mjs 2>&1 | tee evidence/contracts.log
       - uses: actions/upload-artifact@v4
         if: always()
