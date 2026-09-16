@@ -1,7 +1,7 @@
 # Mosha verified evidence
 
-Source: `b1f95a65089eed45f9d49600c8203db2e442c57d`
+Source: `eede817608fbb8996f9d73bf3b46ea1040911ee5`
 
-Run: https://github.com/Simon66-workshop/mosha-card-ui/actions/runs/35127713838
+Run: https://github.com/Simon66-workshop/mosha-card-ui/actions/runs/35128946137
 
-Raw reports and real browser captures: [runs/b1f95a65089eed45f9d49600c8203db2e442c57d](runs/b1f95a65089eed45f9d49600c8203db2e442c57d). These tests are not a deployment receipt, independent third-party review, Safari/iOS certification, adoption metric or award.
+Raw reports and real browser captures: [runs/eede817608fbb8996f9d73bf3b46ea1040911ee5](runs/eede817608fbb8996f9d73bf3b46ea1040911ee5). These tests are not a deployment receipt, independent third-party review, Safari/iOS certification, adoption metric or award.

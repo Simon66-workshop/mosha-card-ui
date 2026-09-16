@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "source": "eede817608fbb8996f9d73bf3b46ea1040911ee5",
+  "contracts": 15,
+  "edgeCases": 6,
+  "browserChecks": 16,
+  "captures": 4,
+  "releaseFiles": 13,
+  "validatorMutationTests": 18,
+  "checkedAt": "2026-09-16T17:34:48.741Z",
+  "deployment": "NOT_PROVEN_BY_THIS_GATE"
+}
