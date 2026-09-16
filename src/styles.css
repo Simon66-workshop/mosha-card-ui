@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07080c;
+  --color-panel: #0e0f14;
+  --color-elevated: #14151c;
+  --color-inset: #1c1e27;
+  --color-void: #050507;
+  --color-fg: #eceef2;
+  --color-muted: #9aa0ab;
+  --color-dim: #6d7380;
+  --color-border: rgb(255 255 255 / 0.08);
+  --color-border-strong: rgb(255 255 255 / 0.18);
+  --color-code: #c5cad3;
+  --color-accent: #d8dce4;
+  --color-accent-fg: #07080c;
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-mark: "Fraunces", "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.mosha-range {
+  appearance: none;
+  width: 100%;
+  height: 18px;
+  background: transparent;
+}
+
+.mosha-range:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-fg) 35%, transparent);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+.mosha-range::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-fg) 16%, transparent);
+}
+
+.mosha-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 0;
+}
+
+.mosha-range::-moz-range-track {
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-fg) 16%, transparent);
+}
+
+.mosha-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--color-fg);
+  border: 0;
+}
+
+.mosha-field {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-elevated);
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-fg);
+}
+
+.mosha-field:focus {
+  outline: 2px solid color-mix(in srgb, var(--color-fg) 28%, transparent);
+  outline-offset: 1px;
+}
+
+.mosha-btn-primary,
+.mosha-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  transition:
+    background-color 150ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 150ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 150ms ease-out;
+}
+
+.mosha-btn-primary:active,
+.mosha-btn-ghost:active {
+  transform: scale(0.96);
+}
+
+.mosha-btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+
+.mosha-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.mosha-btn-ghost {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-muted);
+}
+
+.mosha-btn-ghost:hover {
+  color: var(--color-fg);
+  border-color: var(--color-border-strong);
+}
+
+.studio-stage {
+  min-height: 100%;
+  height: 100%;
+}
+
+.studio-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  flex: none;
+  color: var(--color-fg);
+  white-space: nowrap;
+}
+
+.studio-mark-num {
+  font-family: var(--font-mark);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.7rem;
+  letter-spacing: -0.07em;
+  line-height: 0.85;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 35, "WONK" 1, "opsz" 48;
+}
+
+.studio-mark-rule {
+  width: 1px;
+  height: 1.15rem;
+  flex: none;
+  background: color-mix(in srgb, var(--color-fg) 26%, transparent);
+}
+
+.studio-mark-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mosha-btn-primary,
+  .mosha-btn-ghost {
+    transition: none;
+  }
+}
