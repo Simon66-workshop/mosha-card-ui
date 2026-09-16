@@ -1,0 +1,21 @@
+{
+  "repo": "Simon66-workshop/mosha-card-ui",
+  "branch": "main",
+  "head": "b1f95a65089eed45f9d49600c8203db2e442c57d",
+  "tree": "39f5e26ff700c9366be08388c744448c9372f7d7",
+  "pull_request": 2,
+  "code_status": "PASS_WITH_DOCUMENTED_SCOPE",
+  "artifact_integrity": "PASS",
+  "public_deployment": "BLOCKED_PAGES_NOT_ENABLED",
+  "external_url_status": 404,
+  "application": "NOT_SUBMITTED",
+  "social_post": "NOT_SUBMITTED",
+  "tests": {"contracts":15,"edge_cases":6,"validator_mutation_tests":18,"browser":16},
+  "screenshots": 4,
+  "release_files": 13,
+  "main_run": 35127713838,
+  "pages_run": 35127713737,
+  "artifact_id": 10460456059,
+  "artifact_sha256": "344604b61deb72854317e1cfa38b52ff14a6c05df52fe31b4068a5c30b144f17",
+  "review_kind": "implementation self-review, not independent third-party certification"
+}
