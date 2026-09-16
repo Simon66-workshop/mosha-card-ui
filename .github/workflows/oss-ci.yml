@@ -25,19 +25,8 @@ jobs:
           cache: npm
       - run: mkdir -p evidence && git rev-parse HEAD > evidence/HEAD.txt
       - run: npm ci 2>&1 | tee evidence/install.log
-      - name: Record complete and runtime-only dependency audits
-        run: |
-          npm audit --json > evidence/audit-all.json || true
-          npm audit --omit=dev --json > evidence/audit-production.json || true
-          node --input-type=module <<'JS'
-          import {readFileSync} from 'node:fs';
-          for(const file of ['audit-all.json','audit-production.json']) {
-            const r=JSON.parse(readFileSync('evidence/'+file,'utf8'));
-            if(r.error || !r.metadata?.vulnerabilities) throw new Error('Audit unavailable: '+file);
-            console.log(file,JSON.stringify(r.metadata.vulnerabilities));
-            if(r.metadata.vulnerabilities.total!==0) throw new Error('Unresolved dependency advisory: '+file);
-          }
-          JS
+      - name: Complete and runtime dependency audit
+        run: node scripts/audit-dependencies.mjs
       - run: npm run typecheck 2>&1 | tee evidence/typecheck.log
       - run: npm run lint 2>&1 | tee evidence/lint.log
       - run: npm test 2>&1 | tee evidence/contracts.log
@@ -46,6 +35,8 @@ jobs:
           GITHUB_PAGES: '1'
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser 2>&1 | tee evidence/browser.log
+      - name: Verify source, complete reports and immutable release bytes
+        run: node scripts/verify-release.mjs
       - name: Preserve exact source, runtime outputs and reports
         if: always()
         run: |
@@ -83,7 +74,7 @@ jobs:
             (cd "$dest" && git checkout --orphan oss-evidence && git rm -rf .)
           fi
           mkdir -p "$dest/runs/$SOURCE_SHA/screenshots"
-          cp "$RUNNER_TEMP/mosha-evidence/"{HEAD.txt,contracts.json,browser.json,audit-all.json,audit-production.json,install.log,typecheck.log,lint.log,contracts.log,browser.log,build.log} "$dest/runs/$SOURCE_SHA/"
+          cp "$RUNNER_TEMP/mosha-evidence/"{HEAD.txt,contracts.json,edge-cases.json,release-tests.json,release-input.json,RELEASE_GATE.json,browser.json,audit-all.json,audit-production.json,install.log,typecheck.log,lint.log,contracts.log,browser.log,build.log} "$dest/runs/$SOURCE_SHA/"
           cp "$RUNNER_TEMP/mosha-evidence/screenshots/"*.png "$dest/runs/$SOURCE_SHA/screenshots/"
           printf '# Mosha verified evidence\n\nSource: `%s`\n\nRun: https://github.com/Simon66-workshop/mosha-card-ui/actions/runs/%s\n\nRaw reports and real browser captures: [runs/%s](runs/%s). These tests are not a deployment receipt, independent third-party review, Safari/iOS certification, adoption metric or award.\n' "$SOURCE_SHA" "$RUN_ID" "$SOURCE_SHA" "$SOURCE_SHA" > "$dest/README.md"
           cd "$dest"

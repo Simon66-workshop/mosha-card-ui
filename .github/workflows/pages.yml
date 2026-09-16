@@ -22,15 +22,28 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - run: mkdir -p evidence && git rev-parse HEAD > evidence/HEAD.txt
       - run: npm ci
+      - run: node scripts/audit-dependencies.mjs
       - run: npm run typecheck && npm run lint && npm test
       - run: npm run build
         env:
           GITHUB_PAGES: '1'
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - name: Verify the exact artifact before publication
+        run: node scripts/verify-release.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+      - name: Preserve release-gate evidence even when Pages is not configured
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mosha-pages-gate-${{ github.sha }}
+          path: evidence/
+          retention-days: 30
   deploy:
     needs: build
     runs-on: ubuntu-latest

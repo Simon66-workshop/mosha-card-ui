@@ -8,3 +8,4 @@ evidence/
 .env
 .env.*
 .DS_Store
+.browser-site/

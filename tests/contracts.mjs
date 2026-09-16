@@ -44,6 +44,6 @@ try {
 } finally {
   delete globalThis.window; await server.close();
   const failed = results.filter(r => !r.pass).length;
-  writeFileSync('evidence/contracts.json', JSON.stringify({ checked: results.length, passed: results.length-failed, failed, results }, null, 2));
+  writeFileSync('evidence/contracts.json', JSON.stringify({ source: process.env.GITHUB_SHA ?? process.env.SOURCE_SHA ?? 'local', checked: results.length, passed: results.length-failed, failed, results }, null, 2));
   if (failed || results.length !== 15) process.exitCode = 1;
 }
