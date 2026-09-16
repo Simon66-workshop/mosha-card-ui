@@ -75,6 +75,7 @@ export function ExportDock() {
             key={id}
             type="button"
             onClick={() => setKind(id)}
+            aria-pressed={kind === id}
             className={cn(
               "rounded-md px-2.5 py-1.5 text-xs transition-colors duration-150",
               kind === id ? "bg-inset text-fg" : "text-muted hover:text-fg",
@@ -115,7 +116,7 @@ export function ExportDock() {
         </button>
       </div>
       <p className="px-3 pb-3 text-xs leading-relaxed text-dim">
-        网页是完整可打开的文件。CSS 只作用在 .mosha-stage 上，可直接贴进现有站点。React 已含样式和悬停自旋。
+        网页是完整可打开的文件。CSS + 仅结构用于静态展示；交互请用完整网页或 React TSX。颜色支持 #RGB / #RRGGBB，文本按原文输出。
       </p>
     </div>
   );

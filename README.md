@@ -1,122 +1,70 @@
-<p align="center">
-  <img src="docs/covers/hero.jpg" width="100%" alt="66Workshop · Mosha 磨砂玻璃卡片工作室" />
-</p>
+# 66Workshop · Mosha
 
-<h1 align="center">66Workshop · Mosha</h1>
+**磨砂玻璃卡片，调好以后带走代码。**
 
-<p align="center">
-  <strong>磨砂玻璃卡片工作室</strong><br />
-  扇形 / 层叠 · 悬停自旋 · 调好即导出 CSS / 网页 / React
-</p>
+A small open-source studio for frosted-glass cards: seven presets, fan/stack layouts, hover spin, pin-to-edit, and CSS / standalone HTML / React TSX export. No account, database or model API key is required.
 
-<p align="center">
-  <a href="./demo/66workshop-operate-15s.mp4">▶ 15 秒操作录屏</a>
-  ·
-  <a href="./index.html">打开演示</a>
-  ·
-  <a href="./css/mosha-card.css">丢进项目的 CSS</a>
-</p>
+[Studio deployment](https://simon66-workshop.github.io/mosha-card-ui/) · [15-second existing demo](demo/66workshop-operate-15s.mp4) · [Standalone cards](demo/cards.html) · [Integration](docs/INTEGRATION.md)
 
----
+> The Pages workflow is included. Repository administrators must enable **Settings → Pages → Source: GitHub Actions**. A workflow file or build success is not proof that the public URL is live; check the latest deployment receipt.
 
-一副半透明扑克。红钻、金星、绿梅、蓝黑桃。玻璃厚度、色散、折射、扇形弧度、抬起和自旋，全部能在工作台里实时拧。调到满意，复制一段就能用。
+![Existing studio view](docs/covers/studio-fan.jpg)
+
+## Run
+
+Node **22.12+** (CI uses Node 22).
+
+```sh
+npm ci
+npm run dev
+# Open the localhost URL printed by Vite.
+```
+
+```sh
+npm run typecheck
+npm run lint
+npm test
+npm run build
+npm run preview
+```
+
+The public distribution now contains the studio only. The earlier app-builder auth/database/server shell remains available in Git history at `a7a1ee4`; it is not required for this tool. `private: true` prevents accidental npm publication, not public GitHub access.
+
+## Use the result
+
+**HTML:** choose 网页 → 下载. Open the downloaded file; it includes styles, keyboard/touch/pointer interaction, responsive fitting and no external font dependency.
+
+**React:** choose React → 下载. Add the generated `MoshaHand.tsx` to an existing React/TypeScript project, then render `<MoshaHand />`. It depends on React only and has per-instance state/filter IDs. This is generated source, **not an npm package**.
+
+**CSS:** use the stylesheet with matching HTML structure for static presentation. Hover/pin behavior requires the complete HTML/TSX export or the generated interaction script. Styling is namespaced under `mosha-*`; do not reuse these internal class names for unrelated components.
+
+```tsx
+import { MoshaHand } from './MoshaHand';
+export function Demo() { return <MoshaHand height={520} />; }
+```
+
+Read [integration and boundaries](docs/INTEGRATION.md) before adding a second instance or changing host styles.
 
 ## 工作台
 
-左侧是卡片，右侧是参数。点一张可以钉住，对着它慢慢打磨；划过会在原位抬起，整卡转一圈，邻卡虚化，阴影跟着走。热区钉在扇形几何上，抬起不会把鼠标抖掉。
+七套预设：原片、薄雾、夜虹、厚玻璃、极简、液态、透镜。保持原有扇形/层叠、悬停自旋和固定调参；卡片数量为 2–6 张。
 
-<p align="center">
-  <img src="docs/covers/studio-fan.jpg" width="100%" alt="66Workshop 工作台：扇形四卡 + 右侧调参" />
-</p>
+颜色接受 `#RGB` 或 `#RRGGBB`。文字中的引号、大括号、尖括号按文字输出，不当作 JSX 或 HTML 执行。设置在本机浏览器保存；键盘调节也会保存，损坏的存档会回退到有效值。无法使用本地存储时，本次编辑仍可继续。
 
-## 三种手感
+Tab 可聚焦卡片，Enter/Space 固定，Escape 取消。系统要求减少动态效果时，关闭自动演示与旋转。玻璃/折射是浏览器渲染效果，**不是光学仿真，也不保证各浏览器像素一致**。
 
-| 悬停自旋 | 固定调参 | 扇形 / 层叠 |
-| :---: | :---: | :---: |
-| <img src="docs/covers/hover.jpg" alt="悬停时卡片飞速自旋" /> | <img src="docs/covers/studio-pin.jpg" alt="钉住单卡实时调参" /> | <img src="docs/covers/stack.jpg" alt="四张玻璃卡层叠" /> |
-| 划过即抬起，整卡 360° 翻转 | 钉住一张，玻璃和光学实时变 | 同一套配方，两种排布 |
+## Verified scope
 
-宽幅封面：
+The CI checks clean installation, types, lint, export contracts and production build; browser tests actually load exported HTML and compile/render two separate TSX exports. Reports and captures are uploaded even on failure. No universal browser-compatibility or security certification is claimed. See [audit baseline](docs/audit/baseline/README.md).
 
-<p align="center">
-  <img src="docs/covers/banner.jpg" width="100%" alt="66Workshop 超宽封面" />
-</p>
+Existing covers/video are retained from the original project; they are not fresh post-change QA evidence. New verified captures have their own source/hash manifest.
 
-## 导出
+## Contribute
 
-工作台底部直接出三种成品。CSS 只作用在 `.mosha-stage` 上，可贴进现有站点；网页是完整可打开的单页（含悬停自旋）；React 是带样式和交互的 `MoshaHand`。
+Show a real integration, report a reproducible bug, or send a small tested PR. [CONTRIBUTING](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md).
 
-<p align="center">
-  <img src="docs/covers/studio-export.jpg" width="100%" alt="导出 CSS / 网页 / React" />
-</p>
+Useful? A ⭐ is appreciated. An actual integration or useful bug report is even better. No star exchanges or adoption claims.
 
-| 格式 | 用途 |
-| --- | --- |
-| **CSS** | 作用域在 `.mosha-stage`，丢进任何前端 |
-| **网页** | 完整单页，打开即有悬停自旋 |
-| **React** | 含样式 + 热区交互的组件 |
+## License & attribution
 
-仓库里已经放好一份可直接打开的成品：
-
-- [`index.html`](./index.html)
-- [`css/mosha-card.css`](./css/mosha-card.css)
-
-```html
-<link rel="stylesheet" href="css/mosha-card.css" />
-<!-- 把导出的 HTML 结构贴进来，或直接打开 index.html -->
-```
-
-`data-layout="fan"` 扇形，`data-layout="stack"` 层叠。
-
-## 工作室源码
-
-完整可调工作台（预览 + 滑杆 + 预设 + 导出）：
-
-```bash
-npm install
-npm run dev
-```
-
-预设：**原片 / 液态 / 厚玻璃 / 薄镜 / 单色**。背景色、透明度、折射、色散都可以拧。状态会记在浏览器里，刷新不丢。
-
-## 可调变量
-
-在 `.mosha-stage` 上覆盖：
-
-| 变量 | 作用 |
-| --- | --- |
-| `--mosha-blur` | 毛玻璃模糊 |
-| `--mosha-sat` | 饱和 |
-| `--mosha-fill` | 色淀 |
-| `--mosha-opacity` | 卡片透明度 |
-| `--mosha-refract` | 折射（模糊宜低） |
-| `--mosha-chroma` | 色散描边 |
-| `--mosha-spread` / `--mosha-gap` / `--mosha-arc` | 扇形 |
-| `--mosha-duration` / `--mosha-spin` | 抬起时长 / 自旋 |
-| `--mosha-lift` / `--mosha-scale` | 悬停抬升 / 放大 |
-| `--mosha-sib-blur` / `--mosha-sib-op` | 邻卡虚化 |
-
-每张卡片自己的色相：
-
-```html
-<article class="mosha-card" style="--tint:#2f7eb8; --i:1.5">
-```
-
-`--i` 是相对中心的序号。4 张卡用 `-1.5 -0.5 0.5 1.5`。
-
-## 背景
-
-玻璃需要后面有东西才能透。用深色底，`.mosha-ambient` 会铺一层与卡片同色的光斑。祖先元素不要加 `filter` / `backdrop-filter`。
-
-## 封面
-
-| 文件 | 用途 |
-| --- | --- |
-| [`docs/covers/hero.jpg`](./docs/covers/hero.jpg) | 主视觉 16:9 |
-| [`docs/covers/banner.jpg`](./docs/covers/banner.jpg) | 超宽 21:9 |
-| [`docs/covers/hover.jpg`](./docs/covers/hover.jpg) | 悬停自旋 |
-| [`docs/covers/stack.jpg`](./docs/covers/stack.jpg) | 层叠静物 |
-| [`docs/covers/workbench.jpg`](./docs/covers/workbench.jpg) | 工作台氛围 |
-| [`docs/covers/studio-*.jpg`](./docs/covers) | 真实界面截图 |
-
-MIT
+[MIT](LICENSE), Simon66-workshop / 66Workshop. Preserve required dependency/source notices when redistributing. No claim of affiliation, award or endorsement by OpenAI, Apple or xAI. Original visual assets are retained without asserting a new independent provenance audit.

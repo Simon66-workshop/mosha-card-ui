@@ -36,6 +36,7 @@ export function Studio() {
           <p className="mt-1 text-xs text-muted">磨砂玻璃卡片 · 调好即导出</p>
         </div>
         <div className="flex items-center gap-1.5">
+          <a className="hidden sm:inline text-xs text-muted mr-2" href="https://github.com/Simon66-workshop/mosha-card-ui" target="_blank" rel="noreferrer">GitHub ↗</a>
           <Toggle
             active={layout === "fan" && !demo}
             onClick={() => {
@@ -84,6 +85,8 @@ export function Studio() {
               panel ? "bg-inset text-fg" : "text-muted",
             )}
             aria-label="调节面板"
+            aria-expanded={panel}
+            aria-controls="mosha-controls"
           >
             <SlidersHorizontal className="size-4" strokeWidth={2} />
           </button>
@@ -95,7 +98,7 @@ export function Studio() {
           <Stage />
         </div>
 
-        <aside
+        <aside id="mosha-controls"
           className={cn(
             "z-10 min-h-0 w-full flex-1 flex-col border-t border-border bg-panel lg:w-80 lg:flex-none lg:border-t-0 lg:border-l",
             panel ? "flex" : "hidden lg:flex",
@@ -130,6 +133,8 @@ function Toggle({
     <button
       type="button"
       onClick={onClick}
+      aria-label={label}
+      title={label}
       aria-pressed={active}
       className={cn(
         "inline-flex h-9 items-center gap-1.5 rounded-md border px-2.5 text-xs transition-colors duration-150",
