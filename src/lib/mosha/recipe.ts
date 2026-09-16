@@ -1,3 +1,4 @@
+import { sanitizeParams } from "./validation";
 import type { CardData, FanParams, GlassParams, MotionParams, MoshaParams } from "./types";
 
 export function cardIndexVar(i: number, n: number): number {
@@ -5,7 +6,7 @@ export function cardIndexVar(i: number, n: number): number {
 }
 
 export function stageVars(params: MoshaParams): Record<string, string> {
-  const { glass, fan, motion, bg, cards } = params;
+  const { glass, fan, motion, bg, cards } = sanitizeParams(params);
   const vars: Record<string, string> = {
     "--mosha-bg": bg,
     "--mosha-card-w": `${fan.cardW}px`,
@@ -51,10 +52,11 @@ export function varsToCss(vars: Record<string, string>, selector = ".mosha-stage
   return `${selector} {\n${body}\n}`;
 }
 
-export function moshaLensMarkup(scale: number): string {
-  const s = Math.max(0, Math.min(48, Math.round(scale)));
+export function moshaLensMarkup(scale: number, id = "mosha-lens"): string {
+  if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(id)) throw new Error("Invalid lens ID");
+  const s = Number.isFinite(scale) ? Math.max(0, Math.min(42, Math.round(scale))) : 0;
   return `<svg class="mosha-optics" width="0" height="0" aria-hidden="true" focusable="false">
-  <filter id="mosha-lens" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+  <filter id="${id}" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
     <feTurbulence type="fractalNoise" baseFrequency="0.01 0.016" numOctaves="2" seed="7" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="${s}" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
@@ -74,6 +76,8 @@ export const MOSHA_RECIPE = `/* Mosha Card UI — frosted / liquid / refractive 
   initial-value: 0deg;
 }
 
+.mosha-stage, .mosha-stage *, .mosha-stage *::before, .mosha-stage *::after { box-sizing: border-box; }
+
 .mosha-optics {
   position: absolute;
   width: 0;
@@ -82,16 +86,16 @@ export const MOSHA_RECIPE = `/* Mosha Card UI — frosted / liquid / refractive 
 }
 
 .mosha-stage {
-  --mosha-bg: #08080c;
   position: relative;
   isolation: isolate;
   display: grid;
   place-items: center;
   overflow: hidden;
   min-height: 100%;
+  container-type: inline-size;
   color: #f6f7f9;
   font-family: Sora, ui-sans-serif, system-ui, sans-serif;
-  background: var(--mosha-bg);
+  background: var(--mosha-bg, #08080c);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -117,6 +121,7 @@ export const MOSHA_RECIPE = `/* Mosha Card UI — frosted / liquid / refractive 
   place-items: center;
   width: 100%;
   height: 100%;
+  transform: scale(var(--mosha-fit, 1));
 }
 
 .mosha-hand {
@@ -204,8 +209,8 @@ export const MOSHA_RECIPE = `/* Mosha Card UI — frosted / liquid / refractive 
 }
 
 .mosha-stage[data-refract="1"] .mosha-card-spin {
-  -webkit-backdrop-filter: url(#mosha-lens) ${BACKDROP_STACK};
-  backdrop-filter: url(#mosha-lens) ${BACKDROP_STACK};
+  -webkit-backdrop-filter: var(--mosha-lens-filter, url(#mosha-lens)) ${BACKDROP_STACK};
+  backdrop-filter: var(--mosha-lens-filter, url(#mosha-lens)) ${BACKDROP_STACK};
 }
 
 .mosha-card-sheen,
@@ -440,7 +445,7 @@ export const MOSHA_RECIPE = `/* Mosha Card UI — frosted / liquid / refractive 
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mosha-card {
+  .mosha-card, .mosha-card-cast {
     transition-duration: 0.01ms !important;
   }
   .mosha-hand.is-isolating .mosha-card.is-active .mosha-card-spin {

@@ -44,6 +44,14 @@ export function Stage() {
   const setSelected = useStudio((s) => s.setSelected);
   const setPinned = useStudio((s) => s.setPinned);
   const setDemoPaused = useStudio((s) => s.setDemoPaused);
+  const setDemo = useStudio((s) => s.setDemo);
+  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const change = () => setReducedMotion(media.matches);
+    media.addEventListener("change", change);
+    return () => media.removeEventListener("change", change);
+  }, []);
 
   const params = useMemo(
     () => ({ glass, fan, motion, cards, bg }),
@@ -63,8 +71,8 @@ export function Stage() {
       const w = el.clientWidth;
       const h = el.clientHeight;
       const n = cards.length;
-      const span = fan.cardW + fan.gap * Math.max(n - 1, 0) + 80;
-      const heightNeed = fan.cardH + fan.arc * 4 + motion.lift + 80;
+      const span = fan.cardW + fan.gap * Math.max(n - 1, 0) + fan.cardH + 80;
+      const heightNeed = fan.cardH + fan.arc * ((n - 1) / 2) ** 2 + motion.lift + fan.cardW + 80;
       const next = Math.min(1, (w - 24) / span, (h - 24) / heightNeed);
       setScale(Number.isFinite(next) && next > 0 ? next : 1);
     };
@@ -81,7 +89,7 @@ export function Stage() {
   }, []);
 
   useEffect(() => {
-    if (!demo || demoPaused || pinned) return;
+    if (!demo || demoPaused || pinned || reducedMotion) return;
     if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
@@ -102,9 +110,9 @@ export function Stage() {
     };
     tick();
     return () => window.clearTimeout(timer);
-  }, [demo, demoPaused, pinned, setHover, setLayout]);
+  }, [demo, demoPaused, pinned, reducedMotion, setHover, setLayout]);
 
-  const demoDriving = demo && !demoPaused && !pinned;
+  const demoDriving = demo && !demoPaused && !pinned && !reducedMotion;
   const isolating = (demoDriving && hoverIndex !== null) || pinned || (!demoDriving && hoverIndex !== null);
   const activeIndex = pinned ? selectedIndex : hoverIndex;
   const pinnedCard = pinned ? (cards[selectedIndex] ?? cards[0]) : null;
@@ -150,6 +158,8 @@ export function Stage() {
   }
 
   function handlePointerLeave() {
+    if (raf.current) window.cancelAnimationFrame(raf.current);
+    raf.current = 0;
     if (useStudio.getState().pinned) return;
     setHover(null);
     if (demo) setDemoPaused(false);
@@ -165,6 +175,8 @@ export function Stage() {
       onClick={handleStageClick}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      onKeyDown={event => { if (event.key === "Escape") { setPinned(false); setHover(null); setDemo(false); } }}
+      onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget) && !useStudio.getState().pinned) { setHover(null); setDemoPaused(false); } }}
     >
       <style>{MOSHA_RECIPE}</style>
       <div dangerouslySetInnerHTML={{ __html: lens }} />
@@ -223,7 +235,7 @@ export function Stage() {
                   "--z": i + 1,
                 } as CSSProperties
               }
-              aria-label={`选择 ${card.title}`}
+              aria-label={`选择 ${card.title}. ${card.description}`}
               aria-pressed={pinned && selectedIndex === i}
               onPointerEnter={() => {
                 if (useStudio.getState().pinned) return;

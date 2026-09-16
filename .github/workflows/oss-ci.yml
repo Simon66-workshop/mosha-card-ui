@@ -1,0 +1,46 @@
+name: OSS quality gates
+on:
+  push:
+    branches: [main, feat/oss-productization-b-20260916]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: oss-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: mkdir -p evidence && git rev-parse HEAD > evidence/HEAD.txt
+      - run: npm ci 2>&1 | tee evidence/install.log
+      - run: npm run typecheck 2>&1 | tee evidence/typecheck.log
+      - run: npm run lint 2>&1 | tee evidence/lint.log
+      - run: npm test 2>&1 | tee evidence/contracts.log
+      - run: npm run build 2>&1 | tee evidence/build.log
+        env:
+          GITHUB_PAGES: '1'
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser 2>&1 | tee evidence/browser.log
+      - name: Preserve exact source, runtime outputs and reports
+        if: always()
+        run: |
+          git archive HEAD -o evidence/source.tar.gz
+          if [ -d dist ]; then tar -czf evidence/dist.tar.gz dist; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mosha-qa-${{ github.sha }}
+          path: evidence/
+          retention-days: 30

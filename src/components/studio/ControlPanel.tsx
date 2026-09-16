@@ -4,6 +4,7 @@ import { PRESETS } from "@/lib/mosha/defaults";
 import { SYMBOL_LABEL } from "@/lib/mosha/symbols";
 import { useStudio } from "@/lib/mosha/store";
 import type { PresetId, SymbolName } from "@/lib/mosha/types";
+import { ColorField } from "./ColorField";
 import { cn } from "@/lib/utils";
 
 function SliderRow({
@@ -36,6 +37,7 @@ function SliderRow({
       </span>
       <input
         type="range"
+        aria-label={label}
         min={min}
         max={max}
         step={step}
@@ -83,7 +85,7 @@ export function ControlPanel() {
   const card = cards[selectedIndex] ?? cards[0];
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden" onPointerUp={persist}>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="min-h-0 flex-1 space-y-7 overflow-y-auto overscroll-contain px-4 py-4">
         <Group title="预设">
           <div className="flex flex-wrap gap-1.5">
@@ -181,6 +183,7 @@ export function ControlPanel() {
             <label className="grid gap-1.5 text-xs text-muted">
               编号
               <input
+                maxLength={80}
                 value={card.code}
                 onChange={(e) => setCard(selectedIndex, { code: e.target.value })}
                 className="mosha-field"
@@ -189,6 +192,7 @@ export function ControlPanel() {
             <label className="grid gap-1.5 text-xs text-muted">
               标题
               <input
+                maxLength={120}
                 value={card.title}
                 onChange={(e) => setCard(selectedIndex, { title: e.target.value })}
                 className="mosha-field"
@@ -197,28 +201,14 @@ export function ControlPanel() {
             <label className="grid gap-1.5 text-xs text-muted">
               描述
               <textarea
+                maxLength={1000}
                 value={card.description}
                 rows={2}
                 onChange={(e) => setCard(selectedIndex, { description: e.target.value })}
                 className="mosha-field min-h-16 resize-y"
               />
             </label>
-            <label className="grid gap-1.5 text-xs text-muted">
-              色相
-              <span className="flex items-center gap-2">
-                <input
-                  type="color"
-                  value={card.tint}
-                  onChange={(e) => setCard(selectedIndex, { tint: e.target.value })}
-                  className="h-9 w-12 cursor-pointer rounded-md border border-border bg-transparent p-1"
-                />
-                <input
-                  value={card.tint}
-                  onChange={(e) => setCard(selectedIndex, { tint: e.target.value })}
-                  className="mosha-field font-mono uppercase"
-                />
-              </span>
-            </label>
+            <ColorField key={card.id} label="色相" value={card.tint} onChange={(tint) => setCard(selectedIndex, { tint })} />
             <div className="flex flex-wrap gap-1.5">
               {SYMBOLS.map((name) => (
                 <button
@@ -240,22 +230,7 @@ export function ControlPanel() {
         ) : null}
 
         <Group title="玻璃">
-          <label className="grid gap-1.5 text-xs text-muted">
-            背景
-            <span className="flex items-center gap-2">
-              <input
-                type="color"
-                value={bg}
-                onChange={(e) => setBg(e.target.value)}
-                className="h-9 w-12 cursor-pointer rounded-md border border-border bg-transparent p-1"
-              />
-              <input
-                value={bg}
-                onChange={(e) => setBg(e.target.value)}
-                className="mosha-field font-mono uppercase"
-              />
-            </span>
-          </label>
+          <ColorField label="背景" value={bg} onChange={setBg} />
           <SliderRow label="模糊" value={glass.blur} min={2} max={40} step={1} unit="px" onChange={(blur) => setGlass({ blur })} />
           <SliderRow
             label="饱和"

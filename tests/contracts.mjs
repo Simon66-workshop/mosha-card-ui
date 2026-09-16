@@ -5,7 +5,7 @@ import ts from 'typescript';
 import { createServer } from 'vite';
 
 mkdirSync('evidence', { recursive: true });
-const server = await createServer({ configFile: false, logLevel: 'error', server: { middlewareMode: true } });
+const server = await createServer({ configFile: false, resolve: { alias: { "@": path.resolve("src") } }, optimizeDeps: { noDiscovery: true }, logLevel: 'error', server: { middlewareMode: true } });
 const results = [];
 function check(name, run) { try { run(); results.push({ name, pass: true }); console.log('PASS', name); } catch (error) { results.push({ name, pass: false, error: error.message }); console.error('FAIL', name, error.message); } }
 try {
