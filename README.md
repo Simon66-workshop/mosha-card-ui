@@ -4,9 +4,9 @@
 
 A small open-source studio for frosted-glass cards: seven presets, fan/stack layouts, hover spin, pin-to-edit, and CSS / standalone HTML / React TSX export. No account, database or model API key is required.
 
-[Studio deployment](https://simon66-workshop.github.io/mosha-card-ui/) · [15-second existing demo](demo/66workshop-operate-15s.mp4) · [Standalone cards](demo/cards.html) · [Integration](docs/INTEGRATION.md)
+[Live Studio](https://simon66-workshop.github.io/mosha-card-ui/) · [15-second existing demo](demo/66workshop-operate-15s.mp4) · [Standalone cards](https://simon66-workshop.github.io/mosha-card-ui/examples/cards.html) · [Integration](docs/INTEGRATION.md)
 
-> The Pages workflow is included. Repository administrators must enable **Settings → Pages → Source: GitHub Actions**. A workflow file or build success is not proof that the public URL is live; check the latest deployment receipt.
+> GitHub Pages is live from `main`. The latest verified deployment receipt is recorded in [docs/audit/deployment/2026-09-16.md](docs/audit/deployment/2026-09-16.md). A passing build alone is not treated as proof of a public deployment.
 
 ![Existing studio view](docs/covers/studio-fan.jpg)
 
@@ -55,7 +55,7 @@ Tab 可聚焦卡片，Enter/Space 固定，Escape 取消。系统要求减少动
 
 ## Verified scope
 
-The CI checks clean installation, types, lint, export contracts and production build; browser tests actually load exported HTML and compile/render two separate TSX exports. Reports and captures are uploaded even on failure. No universal browser-compatibility or security certification is claimed. See [audit baseline](docs/audit/baseline/README.md).
+The CI checks clean installation, types, lint, dependency audits, export contracts, edge-case recovery, release-integrity mutation tests and production build; browser tests actually load exported HTML and compile/render two separate TSX exports. Reports and captures are uploaded even on failure. No universal browser-compatibility or security certification is claimed. See [audit baseline](docs/audit/baseline/README.md) and [deployment receipt](docs/audit/deployment/2026-09-16.md).
 
 Existing covers/video are retained from the original project; they are not fresh post-change QA evidence. New verified captures have their own source/hash manifest.
 
