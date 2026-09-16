@@ -13,7 +13,7 @@
     "preview": "vite preview --host 0.0.0.0 --port 4173",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests scripts vite.config.ts",
-    "test": "node tests/contracts.mjs",
+    "test": "node tests/contracts.mjs && node tests/edge-cases.mjs && node tests/release-integrity.mjs",
     "test:browser": "node tests/browser.mjs"
   },
   "dependencies": {

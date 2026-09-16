@@ -26,13 +26,18 @@ function numbers<T extends object>(value: unknown, base: T, bounds: Bounds<T>): 
   }
   return result;
 }
-const text = (value: unknown, fallback: string, max: number) => typeof value === "string" ? value.slice(0,max) : fallback;
+function text(value: unknown, fallback: string, max: number): string {
+  if (typeof value !== "string") return fallback;
+  const clipped = value.slice(0,max);
+  // Keep the documented UTF-16 limit without leaving half of a surrogate pair.
+  return clipped.length < value.length && /[\uD800-\uDBFF]$/.test(clipped) ? clipped.slice(0,-1) : clipped;
+}
 /** Single boundary for untrusted persisted data and all generated source. */
 export function sanitizeParams(value: unknown): MoshaParams {
   const input = record(value), base = defaultParams();
   const rawCards = Array.isArray(input.cards) && input.cards.length >= 2 ? input.cards.slice(0,6) : base.cards;
   const seen = new Set<string>();
-  const cards = rawCards.map((raw, i) => {
+  const cards = Array.from(rawCards, (raw, i) => {
     const card = record(raw), fallback = base.cards[i % base.cards.length]!;
     let id = text(card.id, `card-${i}`, 80);
     if (!/^[a-zA-Z0-9_-]+$/.test(id) || seen.has(id)) id = `restored-${i}`;
