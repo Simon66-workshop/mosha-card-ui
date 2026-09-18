@@ -2,6 +2,27 @@
   "name": "mosha-card-ui",
   "version": "0.2.0",
   "private": true,
+  "description": "Open-source frosted and liquid-glass card studio that exports standalone HTML, React TSX and CSS.",
+  "homepage": "https://simon66-workshop.github.io/mosha-card-ui/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Simon66-workshop/mosha-card-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Simon66-workshop/mosha-card-ui/issues"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "css",
+    "ui",
+    "glassmorphism",
+    "frosted-glass",
+    "liquid-glass",
+    "component-generator",
+    "html-generator",
+    "open-source"
+  ],
   "type": "module",
   "license": "MIT",
   "engines": {
