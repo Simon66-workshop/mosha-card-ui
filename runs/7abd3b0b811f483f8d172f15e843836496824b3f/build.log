@@ -1,0 +1,14 @@
+
+> mosha-card-ui@0.2.0 build
+> vite build && node scripts/build-exports.mjs
+
+[36mvite v8.2.2 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 1634 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   1.48 kB │ gzip:  0.83 kB
+dist/assets/index-C7_wfQCS.css   19.08 kB │ gzip:  4.63 kB
+dist/assets/index-CbpTKyjm.js   304.48 kB │ gzip: 94.77 kB
+
+[32m✓ built in 264ms[39m

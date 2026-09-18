@@ -1,0 +1,81 @@
+{
+  "source": "7abd3b0b811f483f8d172f15e843836496824b3f",
+  "kind": "synthetic validator mutation tests",
+  "checked": 18,
+  "passed": 18,
+  "failed": 0,
+  "results": [
+    {
+      "name": "complete synthetic receipt accepted",
+      "pass": true
+    },
+    {
+      "name": "stale source rejected",
+      "pass": true
+    },
+    {
+      "name": "missing case rejected",
+      "pass": true
+    },
+    {
+      "name": "duplicate case rejected",
+      "pass": true
+    },
+    {
+      "name": "false case rejected",
+      "pass": true
+    },
+    {
+      "name": "forged aggregate rejected",
+      "pass": true
+    },
+    {
+      "name": "missing isolation check rejected",
+      "pass": true
+    },
+    {
+      "name": "console error rejected",
+      "pass": true
+    },
+    {
+      "name": "missing audit rejected",
+      "pass": true
+    },
+    {
+      "name": "unavailable audit rejected",
+      "pass": true
+    },
+    {
+      "name": "nonzero advisory rejected",
+      "pass": true
+    },
+    {
+      "name": "changed release rejected",
+      "pass": true
+    },
+    {
+      "name": "test fixture in release rejected",
+      "pass": true
+    },
+    {
+      "name": "duplicate artifact rejected",
+      "pass": true
+    },
+    {
+      "name": "tampered screenshot rejected",
+      "pass": true
+    },
+    {
+      "name": "duplicate screenshot rejected",
+      "pass": true
+    },
+    {
+      "name": "invalid source rejected",
+      "pass": true
+    },
+    {
+      "name": "manifest detects bytes and rejects symlinks",
+      "pass": true
+    }
+  ]
+}

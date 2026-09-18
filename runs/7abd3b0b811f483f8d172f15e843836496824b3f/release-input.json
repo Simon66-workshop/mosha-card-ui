@@ -1,0 +1,70 @@
+{
+  "source": "7abd3b0b811f483f8d172f15e843836496824b3f",
+  "files": [
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "assets/index-C7_wfQCS.css",
+      "bytes": 19087,
+      "sha256": "6f5f13c8d021c58dcbc422b0653a6ef1c4b2d56c53513d02a251164b0a80bd30"
+    },
+    {
+      "path": "assets/index-CbpTKyjm.js",
+      "bytes": 304482,
+      "sha256": "624d930c996dd8d0d3ad24c18ab057e44cd7d625854424a9937fc79b4979aef4"
+    },
+    {
+      "path": "BUILD.json",
+      "bytes": 80,
+      "sha256": "150f2a1faca43341103ca3608bd0bd81aa908346758167febac2cfd28853fd33"
+    },
+    {
+      "path": "css/mosha-card.css",
+      "bytes": 12186,
+      "sha256": "2e93fc1d93ba0a1e0aa060c4f9a9b8bbc17c100beab7ca4a5e1b62c6244ae487"
+    },
+    {
+      "path": "demo/66workshop-operate-15s.mp4",
+      "bytes": 663131,
+      "sha256": "aa7f881ba9b05407f58acf413331cd9e1c97b1ce4589a61bcb21fe5db5230027"
+    },
+    {
+      "path": "examples/cards.html",
+      "bytes": 21279,
+      "sha256": "3b402384b6e2ca49a9bbfe5d0649b5b6e589c5117a9b04612a6945e046e35288"
+    },
+    {
+      "path": "examples/interactions.js",
+      "bytes": 2225,
+      "sha256": "0a1db62e24c5f784859b5a6e28ddf6f315de25185b0e621faea3eb737cd58477"
+    },
+    {
+      "path": "examples/markup.html",
+      "bytes": 6523,
+      "sha256": "fd26359a5820e0637a12680049d4cde462743a96fcd16cd08a40cd9148058e30"
+    },
+    {
+      "path": "examples/MoshaHand.tsx",
+      "bytes": 17396,
+      "sha256": "b8a530258c88a40fe2778c470763a97ac84ac900c4b58d394c525879ba38e6e8"
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 2035,
+      "sha256": "32ac72d46826f0a80ba02a252940172d27344dda12842d8e62a0810921e9021f"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1486,
+      "sha256": "d0975986895ecd2537d590515c1a2ac9e00fc504677d641f25eb5259fed85f13"
+    },
+    {
+      "path": "og.jpg",
+      "bytes": 32801,
+      "sha256": "5585461826570fb8ec0535454ea0a4ec7df77d8520d612d213dea51255638fb3"
+    }
+  ]
+}
